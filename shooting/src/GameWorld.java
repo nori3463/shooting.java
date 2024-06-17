@@ -2,6 +2,6 @@ import java.util.Vector;
 
 public class GameWorld {
 	static Player player;
-	static Vector<PlayerBullet> playerBullet;
+	static Vector<PlayerBullet> playerBullets;
 
 }
