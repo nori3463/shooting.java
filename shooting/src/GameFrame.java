@@ -14,6 +14,13 @@ public void run() {
 			moveEnemies();
 			for (int i=0 ; i<GameWorld.enemies.size(); i++) {
 				Enemy e=GameWorld.enemies.get(i);
+				if (e.x==GameWorld.player.x &&
+				    e.y==GameWorld.player.y) {
+					System.out.println("やられた!");
+				}
+			}
+			for (int i=0 ; i<GameWorld.enemies.size(); i++) {
+				Enemy e=GameWorld.enemies.get(i);
 				e.draw(this);
 				e.move();
 			}
