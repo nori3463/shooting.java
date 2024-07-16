@@ -21,7 +21,7 @@ public void run() {
 				GameWorld.player.move();
 				moveEnemies();
 				checkPlayerAndEnemies();
-				checkPlayerBulletsAndEnimies();
+				checkPlayerBulletsAndEnemies();
 				if (GameWorld.enemies.size()==0) {
 					setColor(0,0,0);
 					drawString("クリア!",100,200,40);
@@ -90,38 +90,32 @@ public void run() {
 				}
 			}
      }
-     public void checkPlayerBulletsAndEnimies() {
-    	 int i=0;
-    	 while (i<GameWorld.playerBullets.size()) {
-    		 PlayerBullet b=GameWorld.playerBullets.get(i);
-    		 int j=0;
-    		 int hits=0;
-    		 while(j<GameWorld.enemies.size()) {
-    			 Enemy e=GameWorld.enemies.get(j);
-    			 if (checkHit(e,b)) {
-    				 System.out.println("あたり");
-    				 hits++;
-    				 e.life--;
-    			 }
-    			 if (e.life<=0) {
-    				 GameWorld.score+=e.score;
-    				 GameWorld.enemies.remove(j);
-    			 }else {
-    				 j++;
-    			 }
-    			 if (checkHit(e,b)) {
-    				 hits++;
-    				 GameWorld.enemies.remove(j);
-    			 }else{
-    			 j++;
-    			 }
-    		 }
-    		 if (hits>0) {
-    			 GameWorld.playerBullets.remove(i);
-    		 }else {
-    		 }
-    		 j++;
-    	 }
+     public void checkPlayerBulletsAndEnemies() {
+         int i=0;
+         while (i<GameWorld.playerBullets.size()) {
+             PlayerBullet b=GameWorld.playerBullets.get(i);
+             int j=0;
+             int hits=0;
+             while (j<GameWorld.enemies.size()) {
+                 Enemy e=GameWorld.enemies.get(j);
+                 if (checkHit(e, b)) {
+                     System.out.println("あたり");
+                     hits++;
+                     e.life--;
+                 }
+                 if (e.life<=0) {
+                     GameWorld.score+=e.score; // 変更
+                     GameWorld.enemies.remove(j);
+                 } else {
+                     j++;
+                 }
+             }
+             if (hits>0) {
+                 GameWorld.playerBullets.remove(i);
+             } else {
+                 i++;
+             }
+         }
      }
      public boolean checkHit(Character a,Character b) {
     	 if (Math.abs(a.x-b.x)<=20 && Math.abs(a.y-b.y)<=20){
