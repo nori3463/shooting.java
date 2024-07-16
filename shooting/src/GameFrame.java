@@ -14,6 +14,13 @@ public void run() {
 			moveEnemies();
 			checkPlayerAndEnemies();
 			checkPlayerBulletsAndEnimies();
+			if (GameWorld.enemies.size()==0) {
+				setColor(0,0,0);
+				drawString("クリア!",100,200,40);
+			}else if(GameWorld.player.y<0) {
+				setColor(0,0,0);
+				drawString("ゲームオーバー!",50,200,40);
+			}else
 			for (int i=0 ; i<GameWorld.enemies.size(); i++) {
 				Enemy e=GameWorld.enemies.get(i);
 				if (Math.abs(e.x-GameWorld.player.x)<=30 &&
@@ -29,23 +36,31 @@ public void run() {
 			}
 			int i=0;
 			while(i<GameWorld.playerBullets.size()) {
-				PlayerBullet b=GameWorld.playerBullets.get(i);
-				b.draw(this);
-				b.move();
-				if (b.y<0) {
-					GameWorld.playerBullets.remove(i);
+				Enemy e=GameWorld.enemies.get(i);
+				if(e.y>400) {
+			    GameWorld.enemies.remove(i);
 				}else {
 					i++;
 				}
 			}
+		
 			sleep(0.03);
-		}
-	}
+}
+}
      public void moveEnemies() {
     	 for (int i=0 ; i<GameWorld.enemies.size(); i++) {
     		 Enemy e=GameWorld.enemies.get(i);
     		 e.draw(this);
     		 e.move();
+    	 }
+    	 int i=0;
+    	 while (i<GameWorld.enemies.size()) {
+    		 Enemy e=GameWorld.enemies.get(i);
+    		 if (e.y>400) {
+    			 GameWorld.enemies.remove(i);
+    		 }else {
+    			 i++;
+    		 }
     	 }
      }
      public void checkPlayerAndEnemies() {
